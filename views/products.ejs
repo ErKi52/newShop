@@ -9,21 +9,22 @@
   </head>
   <body>
     <%- include('header') %>
-    <h1>Produkte</h1>
-    <a href="/">Zurück zur Hauptseite</a>
-    <ul>
-      <% products.forEach(product => { %>
-      <li class="product">
-        <img src="<%= product.image %>" alt="" />
-        <div class="product-info">
-          <h2><%= product.name %></h2>
-          <p><%= product.description %></p>
-          <p>Preis: <%= product.price %> €</p>
-        </div>
-      </li>
-      <% }); %>
-    </ul>
-
+    <main>
+      <h1>Produkte</h1>
+      <a href="/">Zurück zur Hauptseite</a>
+      <ul>
+        <% products.forEach(product => { %>
+        <li class="product">
+          <img src="<%= product.image %>" alt="" />
+          <div class="product-info">
+            <h2><%= product.name %></h2>
+            <p><%= product.description %></p>
+            <p>Preis: <%= product.price %> €</p>
+          </div>
+        </li>
+        <% }); %>
+      </ul>
+    </main>
     <%- include('footer') %>
   </body>
 </html>

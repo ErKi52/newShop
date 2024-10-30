@@ -9,18 +9,20 @@
   </head>
   <body>
     <%- include('header') %>
-    <h1>Favoriten</h1>
-    <ul>
-      <% if (favorites.length > 0) { %> <% favorites.forEach(favorite => { %>
-      <li>
-        <h2><%= favorite.name %></h2>
-        <p>Preis: <%= favorite.price %> €</p>
-      </li>
-      <% }); %> <% } else { %>
-      <li>Keine Favoriten hinzugefügt.</li>
-      <% } %>
-    </ul>
-    <a href="/">Zurück zur Hauptseite</a>
+    <main>
+      <h1>Favoriten</h1>
+      <ul>
+        <% if (favorites.length > 0) { %> <% favorites.forEach(favorite => { %>
+        <li>
+          <h2><%= favorite.name %></h2>
+          <p>Preis: <%= favorite.price %> €</p>
+        </li>
+        <% }); %> <% } else { %>
+        <li>Keine Favoriten hinzugefügt.</li>
+        <% } %>
+      </ul>
+      <a href="/">Zurück zur Hauptseite</a>
+    </main>
     <%- include('footer') %>
   </body>
 </html>
