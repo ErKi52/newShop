@@ -1,17 +1,20 @@
 const sequelize = require("./database");
 const Product = require("../models/Product");
+const fetchAndStoreProducts = require("../fetchData");
 
 const syncDatabase = async () => {
   try {
     await sequelize.sync({ force: false });
     console.log("Modelle synchronisiert.");
 
-    await Product.create({
+    await fetchAndStoreProducts();
+
+    /* await Product.create({
       name: "Testprodukt",
       price: 19.99,
       description: "Ein einfaches Testprodukt",
     });
-    console.log("Testprodukt hinzugefügt.");
+    console.log("Testprodukt hinzugefügt."); */
   } catch (err) {
     console.error("Fehler bei der Synchronisierung der Modelle:", err);
   }

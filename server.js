@@ -17,10 +17,10 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 
 // Binde Routen ein
-app.use("/", homeRoutes); // Hauptseite
+app.use("/", homeRoutes);
 app.use("/products", productRoutes);
 app.use("/favorites", favoritesRoutes);
-app.use("/cart", cartRoutes); // Warenkorbseite
+app.use("/cart", cartRoutes);
 
 // Synchronisiere die Datenbank
 syncDatabase();

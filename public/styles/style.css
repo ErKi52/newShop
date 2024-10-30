@@ -1,8 +1,13 @@
 /* public/styles/style.css */
+html,
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+  height: 100%; /* Setze die Höhe auf 100% */
+  margin: 0; /* Entferne Standardmargen */
+}
+
+body {
+  display: flex; /* Verwende Flexbox für die Layout-Anordnung */
+  flex-direction: column; /* Elemente werden vertikal angeordnet */
 }
 
 header {
@@ -26,12 +31,45 @@ nav ul li a {
   text-decoration: none;
 }
 
+main {
+  flex: 1; /* Lässt das Hauptinhaltsfeld den verbleibenden Platz einnehmen */
+}
+
 footer {
   background-color: #333;
   color: white;
   text-align: center;
   padding: 10px 0;
-  position: absolute;
-  width: 100%;
-  bottom: 0;
+  width: 100%; /* Setze die Breite des Footers auf 100% */
+}
+
+/* CSS für die Produktdarstellung */
+.product {
+  display: flex; /* Verwende Flexbox, um Bild und Text nebeneinander anzuzeigen */
+  align-items: center; /* Zentriert die Elemente vertikal */
+  margin: 20px 0; /* Abstand zwischen den Produkten */
+  border: 1px solid #ccc; /* Rahmen um jedes Produkt */
+  padding: 10px; /* Innenabstand */
+  border-radius: 5px; /* Abgerundete Ecken */
+  background-color: #f9f9f9; /* Hintergrundfarbe für bessere Sichtbarkeit */
+}
+
+.product img {
+  width: 200px; /* Setze die Breite des Bildes */
+  height: auto; /* Erhalte das Seitenverhältnis des Bildes */
+  margin-right: 20px; /* Abstand zwischen Bild und Text */
+}
+
+.product-info {
+  display: flex; /* Flexbox für die Textinformationen */
+  flex-direction: column; /* Elemente untereinander anordnen */
+}
+
+.product-info h2 {
+  margin: 0; /* Entferne die Standardoberkante */
+  font-size: 20px; /* Größe des Produktnamens */
+}
+
+.product-info p {
+  margin: 5px 0; /* Abstand zwischen den Textabsätzen */
 }
