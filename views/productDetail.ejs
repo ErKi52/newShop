@@ -20,10 +20,18 @@
         <div class="product-detail-info">
           <p><%= product.description %></p>
           <p><%= product.price %> EUR</p>
+          <button
+            class="save-button"
+            onclick="saveToFavorites(this)"
+            data-product="<%= JSON.stringify(product) %>"
+          >
+            Merken
+          </button>
         </div>
       </div>
       <a href="/products">Zurück zu allen Produkten</a>
     </main>
     <%- include('footer') %>
+    <script src="/scripts/favorites.js"></script>
   </body>
 </html>

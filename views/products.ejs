@@ -15,13 +15,14 @@
       <div class="product-list">
         <% products.forEach(product => { %>
         <div class="product-card">
-          <img
-            src="<%= product.image %>"
-            alt="<%= product.name %>"
-            class="product-image"
-          />
+          <a href="/productDetail/<%= product.id %>">
+            <img
+              src="<%= product.image %>"
+              alt="<%= product.name %>"
+              class="product-image"
+          /></a>
           <h2><%= product.name %></h2>
-          <p><%= product.description %></p>
+          <p><%= product.description.substring(0, 70) + "..." %></p>
           <p>Preis: <%= product.price.toFixed(2).replace(".", ",") %> €</p>
           <button
             class="save-button"
@@ -38,23 +39,3 @@
     <script src="/scripts/favorites.js"></script>
   </body>
 </html>
-
-<!-- <ul>
-  <% products.forEach(product => { %>
-  <li class="product">
-    <a href="/products/<%= product.id %>">
-      <img
-        src="<%= product.image %>"
-        alt="<%= product.name %>"
-        class="product-image"
-      />
-    </a>
-    <div class="product-info">
-      <h2><%= product.name %></h2>
-      <p><%= product.description %></p>
-      <p>Preis: <%= product.price %> €</p>
-      <button>Merken</button>
-    </div>
-  </li>
-  <% }); %>
-</ul> -->

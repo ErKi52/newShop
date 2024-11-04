@@ -1,5 +1,5 @@
 // Funktion, um ein Produkt zu den Favoriten hinzuzufügen
-function saveToFavorites(button) {
+window.saveToFavorites = function (button) {
   // Produkt-JSON aus dem data-product Attribut des Buttons holen
   const product = JSON.parse(button.getAttribute("data-product"));
 
@@ -15,7 +15,7 @@ function saveToFavorites(button) {
   } else {
     alert(`${product.name} ist bereits in den Favoriten.`);
   }
-}
+};
 
 // Funktion, um die Favoriten auf der Favoriten-Seite zu laden
 function loadFavorites() {

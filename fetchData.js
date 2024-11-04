@@ -6,6 +6,16 @@ const Product = require("./models/Product");
 // Funktion zum Abrufen und Speichern von Daten
 async function fetchAndStoreProducts() {
   try {
+    // Überprüfe, ob Produkte bereits in der Datenbank vorhanden sind
+    const productCount = await Product.count();
+
+    if (productCount > 0) {
+      console.log(
+        "Produkte sind bereits in der Datenbank vorhanden. API-Import übersprungen."
+      );
+      return; // Beende die Funktion, wenn bereits Produkte vorhanden sind
+    }
+
     const response = await axios.get("https://fakestoreapi.com/products");
     const products = response.data;
 
