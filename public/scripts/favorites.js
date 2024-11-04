@@ -33,6 +33,7 @@ function loadFavorites() {
   favorites.forEach((product) => {
     const productCard = document.createElement("div");
     productCard.className = "product-card";
+    productCard.id = `product-${product.id}`;
 
     // Produktbild
     const productImage = document.createElement("img");
@@ -54,14 +55,35 @@ function loadFavorites() {
       .toFixed(2)
       .replace(".", ",")} €`;
 
+    // Remove-Button
+    const removeButton = document.createElement("button");
+    removeButton.className = "remove-button";
+    removeButton.textContent = "REMOVE";
+
     // Füge die Elemente zur Produktkarte hinzu
     productCard.appendChild(productImage);
     productCard.appendChild(productName);
     productCard.appendChild(productDescription);
     productCard.appendChild(productPrice);
+    productCard.appendChild(removeButton);
 
     favoritesContainer.appendChild(productCard);
+
+    removeButton.addEventListener("click", function () {
+      console.log("Klick");
+      removeFavProduct(product.id);
+    });
   });
+}
+
+// Löschen und erstellen einer neuen Liste
+function removeFavProduct(id) {
+  let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+  favorites = favorites.filter((fav) => fav.id !== id); // Nur die Produkte behalten, die nicht entfernt werden
+
+  // Produkte aus der aktualisierten Fav-Seite werden zurück ins localstorage gespeichert
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+  loadFavorites();
 }
 
 // Beim Laden der Favoriten-Seite die Favoriten aus dem localStorage anzeigen
