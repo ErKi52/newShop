@@ -25,11 +25,18 @@
           <p><%= product.description.substring(0, 70) + "..." %></p>
           <p>Preis: <%= product.price.toFixed(2).replace(".", ",") %> €</p>
           <button
-            class="save-button"
+            class="fav-button"
             onclick="saveToFavorites(this)"
             data-product="<%= JSON.stringify(product) %>"
           >
             Merken
+          </button>
+          <button
+            class="cart-button"
+            onclick="saveToCart(this)"
+            data-product="<%= JSON.stringify(product) %>"
+          >
+            Warenkorb
           </button>
         </div>
         <% }); %>
@@ -37,5 +44,6 @@
     </main>
     <%- include('footer') %>
     <script src="/scripts/favorites.js"></script>
+    <script src="/scripts/cart.js"></script>
   </body>
 </html>
