@@ -24,12 +24,6 @@ function loadCart() {
   const thead = document.createElement("thead");
   const headerRow = document.createElement("tr");
 
-  /* ["Image", "Article", "Price"].forEach((headerText) => {
-    const th = document.createElement("th");
-    th.textContent = headerText;
-    headerRow.appendChild(th);
-  }); */
-
   thead.appendChild(headerRow);
   table.appendChild(thead);
 
@@ -40,7 +34,6 @@ function loadCart() {
   cartContainer.innerHTML = "";
   cart.forEach((product) => {
     const productCard = document.createElement("div");
-    //productCard.className = "product-card";
     productCard.id = `product-${product.id}`;
 
     const row = document.createElement("tr");
@@ -66,6 +59,11 @@ function loadCart() {
     quantityInput.max = 5;
     quantityInput.style.width = "40px"; // Breite des Input-Felds anpassen
 
+    // Verhindere direktes Tippen
+    quantityInput.addEventListener("keypress", (event) => {
+      event.preventDefault(); // verhindert die direkte Eingabe von Zahlen
+    });
+
     // Optional: Event-Listener für Mengenänderungen
     quantityInput.addEventListener("input", () => {
       console.log(
@@ -87,25 +85,4 @@ function loadCart() {
   cartContainer.appendChild(table);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  loadCart();
-});
-
-/* const productImage = document.createElement("img");
-    productImage.src = product.image;
-    productImage.alt = product.name;
-    productImage.style.width = "50px";
-
-    const productName = document.createElement("h4");
-    productName.textContent = product.name;
-
-    const productPrice = document.createElement("p");
-    productPrice.textContent = `Preis: ${product.price
-      .toFixed(2)
-      .replace(".", ",")} €`;
-
-    productCard.appendChild(productImage);
-    productCard.appendChild(productName);
-    productCard.appendChild(productPrice);
-
-    cartContainer.appendChild(productCard); */
+document.addEventListener("DOMContentLoaded", loadCart);
