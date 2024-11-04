@@ -5,24 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Favoriten</title>
     <link rel="stylesheet" href="/styles/style.css" />
-    <!-- Beispiel für eine CSS-Datei -->
   </head>
   <body>
     <%- include('header') %>
-    <main>
-      <h1>Favoriten</h1>
-      <ul>
-        <% if (favorites.length > 0) { %> <% favorites.forEach(favorite => { %>
-        <li>
-          <h2><%= favorite.name %></h2>
-          <p>Preis: <%= favorite.price %> €</p>
-        </li>
-        <% }); %> <% } else { %>
-        <li>Keine Favoriten hinzugefügt.</li>
-        <% } %>
-      </ul>
-      <a href="/">Zurück zur Hauptseite</a>
-    </main>
+    <h1>Favoriten</h1>
+    <div id="favoritesContainer"></div>
     <%- include('footer') %>
+    <script src="/scripts/favorites.js"></script>
   </body>
 </html>

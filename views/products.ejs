@@ -12,25 +12,49 @@
     <main>
       <h1>Produkte</h1>
       <a href="/">Zurück zur Hauptseite</a>
-      <ul>
+      <div class="product-list">
         <% products.forEach(product => { %>
-        <li class="product">
-          <a href="/products/<%= product.id %>">
-            <img
-              src="<%= product.image %>"
-              alt="<%= product.name %>"
-              class="product-image"
-            />
-          </a>
-          <div class="product-info">
-            <h2><%= product.name %></h2>
-            <p><%= product.description %></p>
-            <p>Preis: <%= product.price %> €</p>
-          </div>
-        </li>
+        <div class="product-card">
+          <img
+            src="<%= product.image %>"
+            alt="<%= product.name %>"
+            class="product-image"
+          />
+          <h2><%= product.name %></h2>
+          <p><%= product.description %></p>
+          <p>Preis: <%= product.price.toFixed(2).replace(".", ",") %> €</p>
+          <button
+            class="save-button"
+            onclick="saveToFavorites(this)"
+            data-product="<%= JSON.stringify(product) %>"
+          >
+            Merken
+          </button>
+        </div>
         <% }); %>
-      </ul>
+      </div>
     </main>
     <%- include('footer') %>
+    <script src="/scripts/favorites.js"></script>
   </body>
 </html>
+
+<!-- <ul>
+  <% products.forEach(product => { %>
+  <li class="product">
+    <a href="/products/<%= product.id %>">
+      <img
+        src="<%= product.image %>"
+        alt="<%= product.name %>"
+        class="product-image"
+      />
+    </a>
+    <div class="product-info">
+      <h2><%= product.name %></h2>
+      <p><%= product.description %></p>
+      <p>Preis: <%= product.price %> €</p>
+      <button>Merken</button>
+    </div>
+  </li>
+  <% }); %>
+</ul> -->
