@@ -17,20 +17,20 @@ router.get("/", (req, res) => {
 });
 
 // Details zu einem Produkt
-router.get("/:id", (req, res) => {
-  const productId = req.params.id;
-  Product.findByPk(productId)
-    .then((product) => {
-      if (product) {
-        res.render("productDetail", { product: product });
-      } else {
-        res.status(404).send("Produkt nicht gefunden");
-      }
-    })
-    .catch((err) => {
-      console.error("Fehler beim Abrufen des Produkts:", err);
-      res.status(500).send("Interner Serverfehler");
-    });
+router.get("/:id", async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const product = await Product.findByPk(productId);
+
+    if (product) {
+      res.render("productDetail", { product });
+    } else {
+      res.status(404).send("Produkt nicht gefunden");
+    }
+  } catch (error) {
+    console.error("Fehler beim Abrufen des Produkts:", error);
+    res.status(500).send("Ein Fehler ist aufgetreten");
+  }
 });
 
 module.exports = router;

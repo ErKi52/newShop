@@ -72,3 +72,19 @@ footer {
 .product-info p {
   margin: 5px 0; /* Abstand zwischen den Textabsätzen */
 }
+
+.product-detail {
+  display: flex;
+  align-items: center;
+  margin: 20px;
+}
+
+.product-detail-image {
+  width: 300px;
+  height: auto;
+  margin-right: 20px;
+}
+
+.product-detail-info {
+  max-width: 600px;
+}

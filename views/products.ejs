@@ -15,7 +15,13 @@
       <ul>
         <% products.forEach(product => { %>
         <li class="product">
-          <img src="<%= product.image %>" alt="" />
+          <a href="/products/<%= product.id %>">
+            <img
+              src="<%= product.image %>"
+              alt="<%= product.name %>"
+              class="product-image"
+            />
+          </a>
           <div class="product-info">
             <h2><%= product.name %></h2>
             <p><%= product.description %></p>
