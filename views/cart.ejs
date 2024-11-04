@@ -10,7 +10,23 @@
     <%- include('header') %>
     <main>
       <h1>Warenkorb</h1>
-      <div id="cartContainer"></div>
+      <div class="cartContainer">
+        <div class="left-container"></div>
+        <div class="right-container">
+          <div style="display: flex">
+            <div>Zwischensumme</div>
+            <div>89,90</div>
+          </div>
+          <div style="display: flex">
+            <div>Versandkosten</div>
+            <div>5 Euro</div>
+          </div>
+          <div style="display: flex">
+            <div>Gesamt</div>
+            <div>150 Euro</div>
+          </div>
+        </div>
+      </div>
     </main>
     <%- include('footer') %>
     <script src="/scripts/cart.js"></script>

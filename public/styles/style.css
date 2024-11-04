@@ -133,3 +133,46 @@ footer {
   justify-content: center; /* Zentriert die Karten */
   padding: 20px;
 }
+
+.cartContainer {
+  display: flex; /* Flexbox aktivieren */
+  width: calc(
+    100% - 100px
+  ); /* Gesamte Breite minus 100px für 50px Abstand links und rechts */
+  margin: 0 auto; /* Zentriert den Container horizontal */
+  padding: 0 50px; /* Innenabstand von 50px links und rechts */
+  box-sizing: border-box;
+}
+
+.left-container,
+.right-container {
+  flex: 1; /* Beide Container nehmen gleichen Platz ein */
+  padding: 10px; /* Innenabstand für jeden Container */
+  box-sizing: border-box; /* Beachtet Padding innerhalb der Breite */
+}
+
+/* Optional: Beispielhafte Hintergrundfarben zur Unterscheidung */
+.left-container {
+  background-color: #f0f0f0;
+  /* flex: 0 0 55%; */
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.right-container {
+  background-color: #d0d0d0;
+  /* flex: 0 0 45%; */
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.cart-quantity {
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid;
+  margin: 0 10px;
+}
+
+td {
+  padding: 0 20px 10px 0;
+}
