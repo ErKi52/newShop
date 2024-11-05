@@ -1,19 +1,19 @@
 /* public/styles/style.css */
 html,
 body {
-  height: 100%; /* Setze die Höhe auf 100% */
-  font-family: "Roboto", sans-serif; /* Standard Schriftart */
-  font-size: 16px; /* Grundschriftgröße */
-  line-height: 1.5; /* Zeilenhöhe für bessere Lesbarkeit */
-  margin: 0; /* Entferne Standardmargen */
-  padding: 20px; /* Füge Polsterung hinzu */
-  color: #333; /* Textfarbe */
-  background-color: #f4f4f4; /* Hintergrundfarbe */
+  height: 100%;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+  background-color: #f4f4f4;
 }
 
 body {
-  display: flex; /* Verwende Flexbox für die Layout-Anordnung */
-  flex-direction: column; /* Elemente werden vertikal angeordnet */
+  display: flex;
+  flex-direction: column;
 }
 
 header {
@@ -140,7 +140,7 @@ footer {
   padding: 20px;
 }
 
-.cartContainer {
+.cart-container {
   display: flex; /* Flexbox aktivieren */
   width: calc(
     100% - 100px
@@ -155,12 +155,12 @@ footer {
   flex: 1; /* Beide Container nehmen gleichen Platz ein */
   padding: 10px; /* Innenabstand für jeden Container */
   box-sizing: border-box; /* Beachtet Padding innerhalb der Breite */
+  background-color: #f9f9f9;
 }
 
 /* Optional: Beispielhafte Hintergrundfarben zur Unterscheidung */
 .left-container {
-  background-color: #f0f0f0;
-  /* flex: 0 0 55%; */
+  flex: 0 0 60%;
   padding: 10px;
   box-sizing: border-box;
 }
@@ -176,12 +176,11 @@ td {
   padding: 0 20px 10px 0;
 }
 .right-container {
-  /* flex: 0 0 45%; */
+  flex: 0 0 40%;
   padding: 20px;
   border: 1px solid #ccc; /* Optional: Rand um die Zusammenfassung */
   border-radius: 5px; /* Optional: Runde Ecken */
   /* box-sizing: border-box; */
-  background-color: #f9f9f9; /* Optional: Hintergrundfarbe */
 }
 
 .row {

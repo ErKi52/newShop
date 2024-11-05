@@ -1,9 +1,8 @@
 window.saveToCart = function (button) {
   const product = JSON.parse(button.getAttribute("data-product"));
-
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
   const isAlreadyInCart = cart.some((item) => item.id === product.id);
+
   if (!isAlreadyInCart) {
     cart.push(product);
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -13,29 +12,30 @@ window.saveToCart = function (button) {
   }
 };
 
-function loadCart() {
+function createLeftDiv() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
+  const cartContainer = document.querySelector(".cart-container");
   const leftContainer = document.querySelector(".left-container");
-
-  const table = document.createElement("table");
-  const thead = document.createElement("thead");
-  const headerRow = document.createElement("tr");
-
-  thead.appendChild(headerRow);
-  table.appendChild(thead);
-
-  const tbody = document.createElement("tbody");
-
-  if (!leftContainer) return;
+  const rightContainer = document.querySelector(".right-container");
 
   leftContainer.innerHTML = "";
+  rightContainer.innerHTML = "";
+
+  const table = document.createElement("table");
+  const tbody = document.createElement("tbody");
+
+  if (cart.length === 0) {
+    leftContainer.remove();
+    rightContainer.remove();
+    const emptyMsg = document.createElement("div");
+    emptyMsg.textContent = "Der Warenkorb ist leer";
+    cartContainer.appendChild(emptyMsg);
+    return;
+  }
+
   let totalPrice = 0;
 
   cart.forEach((product) => {
-    const productCard = document.createElement("div");
-    productCard.id = `product-${product.id}`;
-
     const row = document.createElement("tr");
 
     const cellImage = document.createElement("td");
@@ -65,7 +65,7 @@ function loadCart() {
       quantitySelect.appendChild(option);
     }
 
-    // Optional: Event-Listener für Mengenänderungen
+    // Event-Listener für Mengenänderungen
     quantitySelect.addEventListener("input", () => {
       updateCartSummary();
     });
@@ -76,6 +76,17 @@ function loadCart() {
     const cellPrice = document.createElement("td");
     cellPrice.textContent = product.price.toFixed(2) + " €";
     row.appendChild(cellPrice);
+
+    const cellRemoveButton = document.createElement("td");
+    const removeArticleButton = document.createElement("button");
+    removeArticleButton.textContent = "X";
+    removeArticleButton.classList.add("remove-article");
+    cellRemoveButton.appendChild(removeArticleButton);
+    row.appendChild(cellRemoveButton);
+
+    removeArticleButton.addEventListener("click", function () {
+      removeCartProduct(product.id);
+    });
 
     totalPrice += parseFloat(product.price);
 
@@ -92,13 +103,18 @@ function cartSummary(totalPrice) {
   const shippingCosts = "5,00";
   const total = totalPrice + parseFloat(shippingCosts);
 
-  createRow("Zwischensumme", `${totalPrice.toFixed(2)} €`);
-  createRow("Versandkosten", `${shippingCosts} €`);
-  createRow("Gesamtpreis", `${total.toFixed(2).replace(".", ",")} €`, true);
+  createRightDiv("Zwischensumme", `${totalPrice.toFixed(2)} €`);
+  createRightDiv("Versandkosten", `${shippingCosts} €`);
+  createRightDiv(
+    "Gesamtpreis",
+    `${total.toFixed(2).replace(".", ",")} €`,
+    true
+  );
 }
 
-function createRow(labelText, valueText, isTotal = false) {
+function createRightDiv(labelText, valueText, isTotal = false) {
   const rightContainer = document.querySelector(".right-container");
+
   const row = document.createElement("div");
   row.classList.add("row");
   if (isTotal) row.classList.add("total");
@@ -138,4 +154,15 @@ function updateCartSummary() {
   cartSummary(totalPrice); // Berechne und zeige die neue Gesamtsumme an
 }
 
-document.addEventListener("DOMContentLoaded", loadCart);
+function removeCartProduct(id) {
+  const products = JSON.parse(localStorage.getItem("cart") || []);
+  const cartProducts = products.filter((product) => product.id !== id); // Filtert die Produkte
+
+  // Speichere die neuen Produkte im localStorage
+  localStorage.setItem("cart", JSON.stringify(cartProducts));
+
+  // Aktualisiere den Warenkorb, um die Änderungen anzuzeigen
+  createLeftDiv();
+}
+
+document.addEventListener("DOMContentLoaded", createLeftDiv);
