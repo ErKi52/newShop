@@ -2,7 +2,13 @@
 html,
 body {
   height: 100%; /* Setze die Höhe auf 100% */
+  font-family: "Roboto", sans-serif; /* Standard Schriftart */
+  font-size: 16px; /* Grundschriftgröße */
+  line-height: 1.5; /* Zeilenhöhe für bessere Lesbarkeit */
   margin: 0; /* Entferne Standardmargen */
+  padding: 20px; /* Füge Polsterung hinzu */
+  color: #333; /* Textfarbe */
+  background-color: #f4f4f4; /* Hintergrundfarbe */
 }
 
 body {
@@ -159,13 +165,6 @@ footer {
   box-sizing: border-box;
 }
 
-.right-container {
-  background-color: #d0d0d0;
-  /* flex: 0 0 45%; */
-  padding: 10px;
-  box-sizing: border-box;
-}
-
 .cart-quantity {
   border-radius: 0;
   border: none;
@@ -175,4 +174,33 @@ footer {
 
 td {
   padding: 0 20px 10px 0;
+}
+.right-container {
+  /* flex: 0 0 45%; */
+  padding: 20px;
+  border: 1px solid #ccc; /* Optional: Rand um die Zusammenfassung */
+  border-radius: 5px; /* Optional: Runde Ecken */
+  /* box-sizing: border-box; */
+  background-color: #f9f9f9; /* Optional: Hintergrundfarbe */
+}
+
+.row {
+  display: flex; /* Flexbox für das Layout */
+  justify-content: space-between; /* Abstand zwischen Label und Wert */
+  margin-bottom: 10px; /* Abstand zwischen den Zeilen */
+}
+
+.label {
+  font-weight: bold; /* Fett gedruckte Beschriftungen */
+  flex-basis: 60%; /* Breite der Beschriftung */
+}
+
+.value {
+  text-align: right; /* Preise nach rechts ausrichten */
+  flex-basis: 40%; /* Breite der Werte */
+}
+
+.total {
+  border-top: 2px solid #333; /* Linienstil für die Gesamtreihe */
+  font-weight: bold; /* Fett gedruckt für die Gesamtsumme */
 }

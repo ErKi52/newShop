@@ -30,6 +30,8 @@ function loadCart() {
   if (!leftContainer) return;
 
   leftContainer.innerHTML = "";
+  let totalPrice = 0;
+
   cart.forEach((product) => {
     const productCard = document.createElement("div");
     productCard.id = `product-${product.id}`;
@@ -65,9 +67,7 @@ function loadCart() {
 
     // Optional: Event-Listener für Mengenänderungen
     quantitySelect.addEventListener("input", () => {
-      console.log(
-        `Anzahl von ${product.name} geändert zu: ${quantitySelect.value}`
-      );
+      updateCartSummary();
     });
 
     cellSelect.appendChild(quantitySelect);
@@ -77,17 +77,65 @@ function loadCart() {
     cellPrice.textContent = product.price.toFixed(2) + " €";
     row.appendChild(cellPrice);
 
+    totalPrice += parseFloat(product.price);
+
     tbody.appendChild(row);
   });
 
   table.appendChild(tbody);
   leftContainer.appendChild(table);
+
+  cartSummary(totalPrice);
 }
 
-function cartSummary() {
-  const leftContainer = document.querySelector(".right-container");
+function cartSummary(totalPrice) {
+  const shippingCosts = "5,00";
+  const total = totalPrice + parseFloat(shippingCosts);
 
-  
+  createRow("Zwischensumme", `${totalPrice.toFixed(2)} €`);
+  createRow("Versandkosten", `${shippingCosts} €`);
+  createRow("Gesamtpreis", `${total.toFixed(2).replace(".", ",")} €`, true);
+}
+
+function createRow(labelText, valueText, isTotal = false) {
+  const rightContainer = document.querySelector(".right-container");
+  const row = document.createElement("div");
+  row.classList.add("row");
+  if (isTotal) row.classList.add("total");
+
+  // Label-Element erstellen
+  const label = document.createElement("div");
+  label.classList.add("label");
+  label.textContent = labelText;
+
+  // Wert-Element erstellen
+  const value = document.createElement("div");
+  value.classList.add("value");
+  value.textContent = valueText;
+
+  // Label und Wert in die Zeile (row) einfügen
+  row.appendChild(label);
+  row.appendChild(value);
+
+  // Zeile in den Container einfügen
+  rightContainer.appendChild(row);
+}
+
+function updateCartSummary() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let totalPrice = 0;
+
+  // Berechne die Gesamtsumme basierend auf den gewählten Mengen
+  cart.forEach((product, index) => {
+    const quantitySelect = document.querySelectorAll(`.cart-quantity`)[index]; // Finde das zugehörige Select-Element
+    const quantity = quantitySelect ? parseInt(quantitySelect.value) : 1; // Standard auf 1, wenn nicht gefunden
+    totalPrice += parseFloat(product.price) * quantity;
+  });
+
+  // Aktualisiere die Zusammenfassung im right-container
+  const rightContainer = document.querySelector(".right-container");
+  rightContainer.innerHTML = ""; // Clear previous summary
+  cartSummary(totalPrice); // Berechne und zeige die neue Gesamtsumme an
 }
 
 document.addEventListener("DOMContentLoaded", loadCart);
