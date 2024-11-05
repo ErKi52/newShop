@@ -5,15 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hauptseite</title>
     <link rel="stylesheet" href="/styles/style.css" />
-    <!-- Beispiel für eine CSS-Datei -->
   </head>
   <body>
     <%- include('header') %>
     <main>
       <h1>Willkommen in unserem Shop!</h1>
       <p>Hier sind einige tolle Produkte!</p>
-      <a href="/products">Alle Produkte ansehen</a>
+
+      <!-- Slider-Container -->
+      <div class="slider">
+        <% images.forEach((image, index) => { %>
+        <div class="slide <%= index === 0 ? 'active' : '' %>">
+          <img src="<%= image %>" alt="Produktbild <%= index + 1 %>" />
+        </div>
+        <% }); %>
+      </div>
     </main>
     <%- include('footer') %>
+
+    <!-- Slider-Script -->
+    <script src="/scripts/slider.js"></script>
   </body>
 </html>

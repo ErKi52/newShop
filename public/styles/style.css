@@ -203,3 +203,34 @@ td {
   border-top: 2px solid #333; /* Linienstil für die Gesamtreihe */
   font-weight: bold; /* Fett gedruckt für die Gesamtsumme */
 }
+
+/* Slider-Styling */
+.slider {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 400px;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.slide img {
+  width: 100%;
+  height: auto;
+}
+
+.slide.active {
+  opacity: 1;
+  transform: translateX(0); /* Setzt die aktive Slide zurück */
+}
+
+.slide:not(.active) {
+  opacity: 0; /* Nicht aktive Slides sind unsichtbar */
+}
