@@ -317,42 +317,116 @@ td {
   opacity: 0; /* Nicht aktive Slides sind unsichtbar */
 }
 
-/* Filterformular */
-.filter-form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-  padding: 15px;
-  background-color: #f1f1f1;
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-
-.filter-form label {
-  font-weight: bold;
-  margin-right: 5px;
-}
-
-.filter-form select,
-.filter-form input[type="number"] {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 150px;
-}
-
-.filter-form button {
-  background-color: #28a745;
+.button-common {
+  padding: 10px 20px;
   color: white;
-  padding: 8px 16px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
+  margin: 20px 10px 20px 0; /* Abstand zwischen Buttons */
 }
 
-.filter-form button:hover {
+/* Filter- und Reset-Button-Container */
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* Stil für den Reset-Button */
+.reset-button {
+  background-color: #dc3545;
+  text-decoration: none;
+}
+
+.reset-button:hover {
+  background-color: #c82333;
+}
+
+/* Button zum Öffnen des Modals */
+.filter-button {
+  background-color: #4caf50;
+}
+
+.filter-button:hover {
+  background-color: #45a049;
+}
+
+/* Modal-Hintergrund */
+.modal {
+  display: none; /* Standardmäßig versteckt */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Halbtransparentes Overlay */
+}
+
+/* Modal-Inhalt */
+.modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+/* Schließen-Button im Modal */
+.close {
+  color: #aaa;
+  font-size: 24px;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+}
+
+/* Formular im Modal */
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Labels und Eingabefelder */
+.modal-content label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.modal-content select,
+.modal-content input[type="number"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+/* Filter-Button im Modal */
+.modal-content button[type="submit"] {
+  background-color: #28a745;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+}
+
+.modal-content button[type="submit"]:hover {
   background-color: #218838;
 }

@@ -11,69 +11,68 @@
     <main>
       <h1>Produkte</h1>
 
-      <!-- Filterformular -->
-      <form method="get" action="/products" class="filter-form">
-        <label for="category">Kategorie:</label>
-        <select name="category" id="category">
-          <option value="">Alle Kategorien</option>
-          <option value="electronics">Elektronik</option>
-          <option value="jewelery">Schmuck</option>
-          <option value="men's clothing">Herrenbekleidung</option>
-          <option value="women's clothing">Damenbekleidung</option>
-        </select>
+      <div class="filter-buttons">
+        <!-- Button zum Öffnen des Modals -->
+      <button id="openFilterModal" class="button-common filter-button">Filtern</button>
 
-        <label for="minPrice">Mindestpreis:</label>
-        <input
-          type="number"
-          step="5.00"
-          name="minPrice"
-          id="minPrice"
-          placeholder="0.00"
-        />
-
-        <label for="maxPrice">Höchstpreis:</label>
-        <input
-          type="number"
-          step="5.00"
-          name="maxPrice"
-          id="maxPrice"
-          placeholder="0.00"
-        />
-
-        <button type="submit">Filtern</button>
-      </form>
-      
-      <!-- Sortierungs- und Resetformular -->
-      <div class="sort-and-reset-container">
-        <form method="get" action="/products" class="sort-form">
-          <label for="sort">Sortieren nach:</label>
-          <select name="sort" id="sort" onchange="this.form.submit()">
-            <option value="">Keine Sortierung</option>
-            <option value="asc" <%= sort === 'asc' ? 'selected' : '' %>>Preis aufsteigend</option>
-            <option value="desc" <%= sort === 'desc' ? 'selected' : '' %>>Preis absteigend</option>
-          </select>
-          
-          <!-- Versteckte Felder für die Filterparameter -->
-          <input type="hidden" name="category" value="<%= category || '' %>" />
-          <input type="hidden" name="minPrice" value="<%= minPrice || '' %>" />
-          <input type="hidden" name="maxPrice" value="<%= maxPrice || '' %>" />
-        </form>
-        
-        <!-- Reset-Button -->
-        <form method="get" action="/products/reset" class="reset-form">
-          <button type="submit" class="reset-button">Filter zurücksetzen</button>
-        </form>
+      <!-- Reset-Button -->
+      <a href="/products/reset" class="button-common reset-button">Zurücksetzen</a>
       </div>
 
+      <!-- Modal-Container -->
+      <div id="filterModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Produkte filtern</h2>
+          <form method="get" action="/products">
+            <!-- Kategorieauswahl -->
+            <label for="category">Kategorie:</label>
+            <select name="category" id="category">
+              <option value="">Alle Kategorien</option>
+              <option value="electronics">Elektronik</option>
+              <option value="jewelery">Schmuck</option>
+              <option value="men's clothing">Herrenbekleidung</option>
+              <option value="women's clothing">Damenbekleidung</option>
+            </select>
+
+            <!-- Preisfilter -->
+            <label for="minPrice">Mindestpreis:</label>
+            <input
+              type="number"
+              step="5.00"
+              name="minPrice"
+              id="minPrice"
+              placeholder="0.00"
+            />
+            <label for="maxPrice">Höchstpreis:</label>
+            <input
+              type="number"
+              step="5.00"
+              name="maxPrice"
+              id="maxPrice"
+              placeholder="0.00"
+            />
+
+            <!-- Sortierungsoptionen -->
+            <label for="sort">Sortieren nach:</label>
+            <select name="sort" id="sort">
+              <option value="">Keine Sortierung</option>
+              <option value="asc" <%= sort === 'asc' ? 'selected' : '' %>>Preis aufsteigend</option>
+              <option value="desc" <%= sort === 'desc' ? 'selected' : '' %>>Preis absteigend</option>
+            </select>
+
+            <button type="submit">Filtern</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Produktliste -->
       <div class="product-list">
         <% products.forEach(product => { %>
         <div class="product-card">
           <a href="/productDetail/<%= product.id %>">
-            <img
-              src="<%= product.image %>"
-              alt="<%= product.name %>"
-              class="product-image"
-          /></a>
+            <img src="<%= product.image %>" alt="<%= product.name %>" class="product-image" />
+          </a>
           <h2><%= product.name.substring(0, 50) %></h2>
           <p><%= product.description.substring(0, 70) + "..." %></p>
           <div class="price">
@@ -100,5 +99,7 @@
     <%- include('footer') %>
     <script src="/scripts/favorites.js"></script>
     <script src="/scripts/cart.js"></script>
+    <script src="/scripts/modal.js"></script>
+    <script src="/scripts/products.js"></script>
   </body>
 </html>

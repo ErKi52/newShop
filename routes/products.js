@@ -32,12 +32,9 @@ router.get("/", async (req, res) => {
     order = [["price", "DESC"]]; // Preis absteigend
   }
 
-  // Konsolenausgabe zur Überprüfung der Filterbedingungen
-  /* console.log("Filter-Bedingungen:", filter); */
-
   try {
     // Produkte aus der Datenbank abrufen, basierend auf den Filtern
-    const products = await Product.findAll({ where: filter, order: order }); // Nutzung des Filter-Objekts in der Abfrage
+    const products = await Product.findAll({ where: filter, order: order });
 
     // Übergebe alle relevanten Parameter an die View
     res.render("products", {
@@ -55,13 +52,9 @@ router.get("/", async (req, res) => {
 
 // Reset der Filter-Parameter
 router.get("/reset", async (req, res) => {
-  // Leere Filter-Objekte, keine Filter oder Sortierungen
-  const filter = {};
-  let order = [];
-
   try {
     // Produkte aus der Datenbank abrufen ohne Filter und Sortierung
-    const products = await Product.findAll({ where: filter, order: order });
+    const products = await Product.findAll();
 
     // Weiterleitung auf die Standard-Produktseite ohne Filter
     res.redirect("/products"); // Diese Zeile lädt die Seite ohne Filter und Sortierung neu
