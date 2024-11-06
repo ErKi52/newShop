@@ -5,13 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Produkte</title>
     <link rel="stylesheet" href="/styles/style.css" />
-    <!-- Beispiel für eine CSS-Datei -->
   </head>
   <body>
     <%- include('header') %>
     <main>
       <h1>Produkte</h1>
-      <a href="/">Zurück zur Hauptseite</a>
+
+      <!-- Filterformular -->
+      <form method="get" action="/products" class="filter-form">
+        <label for="category">Kategorie:</label>
+        <select name="category" id="category">
+          <option value="">Alle Kategorien</option>
+          <option value="electronics">Elektronik</option>
+          <option value="jewelery">Schmuck</option>
+          <option value="men's clothing">Herrenbekleidung</option>
+          <option value="women's clothing">Damenbekleidung</option>
+        </select>
+
+        <label for="minPrice">Mindestpreis:</label>
+        <input
+          type="number"
+          step="5.00"
+          name="minPrice"
+          id="minPrice"
+          placeholder="0.00"
+        />
+
+        <label for="maxPrice">Höchstpreis:</label>
+        <input
+          type="number"
+          step="5.00"
+          name="maxPrice"
+          id="maxPrice"
+          placeholder="0.00"
+        />
+
+        <button type="submit">Filtern</button>
+      </form>
+
       <div class="product-list">
         <% products.forEach(product => { %>
         <div class="product-card">
@@ -21,9 +52,11 @@
               alt="<%= product.name %>"
               class="product-image"
           /></a>
-          <h2><%= product.name %></h2>
+          <h2><%= product.name.substring(0, 50) %></h2>
           <p><%= product.description.substring(0, 70) + "..." %></p>
-          <p>Preis: <%= product.price.toFixed(2).replace(".", ",") %> €</p>
+          <div class="price">
+            Preis: <%= product.price.toFixed(2).replace(".", ",") %> €
+          </div>
           <button
             class="fav-button"
             onclick="saveToFavorites(this)"
@@ -40,7 +73,6 @@
           </button>
         </div>
         <% }); %>
-      </div>
     </main>
     <%- include('footer') %>
     <script src="/scripts/favorites.js"></script>
