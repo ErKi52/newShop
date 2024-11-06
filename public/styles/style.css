@@ -214,6 +214,12 @@ footer {
   background-color: #0056b3;
 }
 
+.fav-button.disabled,
+.cart-button.disabled {
+  background-color: #6c757d; /* Graue Farbe für den favorisierten Button */
+  cursor: not-allowed; /* Zeigt an, dass der Button deaktiviert ist */
+}
+
 #favoritesContainer {
   display: flex;
   flex-wrap: wrap;

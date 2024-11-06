@@ -1,38 +1,81 @@
-window.saveToCart = function (button) {
+// scripts/cart.js
+
+"use strict";
+
+const addedToCart = "added to cart".toUpperCase();
+const addToCart = "add to cart".toUpperCase();
+
+window.addToCart = function (button) {
   const product = JSON.parse(button.getAttribute("data-product"));
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
   const isAlreadyInCart = cart.some((item) => item.id === product.id);
 
   if (!isAlreadyInCart) {
     cart.push(product);
     localStorage.setItem("cart", JSON.stringify(cart));
-    alert(`${product.name} wurde in den Warenkorb hinzugefügt!`);
+
+    // Button deaktivieren und Farbe ändern
+    button.disabled = true;
+    button.classList.add("disabled");
+    button.textContent = addedToCart;
   } else {
-    alert(`${product.name} ist bereits im Warenkorb.`);
+    // Wenn das Produkt schon im Warenkorb ist, entfernen wir es
+    cart = cart.filter((item) => item.id !== product.id);
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Button wieder aktivieren und Farbe zurücksetzen
+    button.disabled = false;
+    button.classList.remove("disabled");
+    button.textContent = addToCart;
   }
+
+  createLeftDiv(); // Aktualisiere Warenkorbanzeige
 };
+
+// Funktion, um den "Warenkorb"-Button zu deaktivieren
+function disableButton(button) {
+  button.disabled = true;
+  button.textContent = addedToCart;
+}
+
+// Funktion, um den "Warenkorb"-Button zu aktivieren
+function enableButton(button) {
+  button.disabled = false;
+  button.textContent = addToCart;
+}
 
 function createLeftDiv() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
   const cartContainer = document.querySelector(".cart-container");
   const leftContainer = document.querySelector(".left-container");
   const rightContainer = document.querySelector(".right-container");
 
+  if (!cartContainer || !leftContainer || !rightContainer) {
+    return; // Falls die Container nicht existieren, breche die Funktion ab.
+  }
+
   leftContainer.innerHTML = "";
   rightContainer.innerHTML = "";
 
-  const table = document.createElement("table");
-  const tbody = document.createElement("tbody");
-
   if (cart.length === 0) {
-    leftContainer.remove();
-    rightContainer.remove();
+    // Container ausblenden, wenn leer
+    leftContainer.style.display = "none";
+    rightContainer.style.display = "none";
+
     const emptyMsg = document.createElement("div");
     emptyMsg.textContent = "Der Warenkorb ist leer";
     cartContainer.appendChild(emptyMsg);
     return;
+  } else {
+    // Wenn der Warenkorb nicht leer ist, stelle die Container wieder her
+    leftContainer.style.display = "block";
+    rightContainer.style.display = "block";
   }
 
+  const table = document.createElement("table");
+  const tbody = document.createElement("tbody");
   let totalPrice = 0;
 
   cart.forEach((product) => {
@@ -51,13 +94,11 @@ function createLeftDiv() {
     cellName.textContent = product.name;
     row.appendChild(cellName);
 
-    // Spalte: Anzahl mit Eingabefeld (Input Type Number)
     const cellSelect = document.createElement("td");
     const quantitySelect = document.createElement("select");
     quantitySelect.className = "cart-quantity";
     quantitySelect.style.width = "60px";
 
-    // Optionen für das Dropdown-Menü (von 1 bis 5)
     for (let i = 1; i <= 5; i++) {
       const option = document.createElement("option");
       option.value = i;
@@ -65,7 +106,6 @@ function createLeftDiv() {
       quantitySelect.appendChild(option);
     }
 
-    // Event-Listener für Mengenänderungen
     quantitySelect.addEventListener("input", () => {
       updateCartSummary();
     });
@@ -89,18 +129,16 @@ function createLeftDiv() {
     });
 
     totalPrice += parseFloat(product.price);
-
     tbody.appendChild(row);
   });
 
   table.appendChild(tbody);
   leftContainer.appendChild(table);
-
   cartSummary(totalPrice);
 }
 
 function cartSummary(totalPrice) {
-  const shippingCosts = "5,00";
+  const shippingCosts = "5.00";
   const total = totalPrice + parseFloat(shippingCosts);
 
   createRightDiv("Zwischensumme", `${totalPrice.toFixed(2)} €`);
@@ -119,21 +157,16 @@ function createRightDiv(labelText, valueText, isTotal = false) {
   row.classList.add("row");
   if (isTotal) row.classList.add("total");
 
-  // Label-Element erstellen
   const label = document.createElement("div");
   label.classList.add("label");
   label.textContent = labelText;
 
-  // Wert-Element erstellen
   const value = document.createElement("div");
   value.classList.add("value");
   value.textContent = valueText;
 
-  // Label und Wert in die Zeile (row) einfügen
   row.appendChild(label);
   row.appendChild(value);
-
-  // Zeile in den Container einfügen
   rightContainer.appendChild(row);
 }
 
@@ -141,28 +174,59 @@ function updateCartSummary() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   let totalPrice = 0;
 
-  // Berechne die Gesamtsumme basierend auf den gewählten Mengen
   cart.forEach((product, index) => {
-    const quantitySelect = document.querySelectorAll(`.cart-quantity`)[index]; // Finde das zugehörige Select-Element
-    const quantity = quantitySelect ? parseInt(quantitySelect.value) : 1; // Standard auf 1, wenn nicht gefunden
+    const quantitySelect = document.querySelectorAll(`.cart-quantity`)[index];
+    const quantity = quantitySelect ? parseInt(quantitySelect.value) : 1;
     totalPrice += parseFloat(product.price) * quantity;
   });
 
-  // Aktualisiere die Zusammenfassung im right-container
   const rightContainer = document.querySelector(".right-container");
-  rightContainer.innerHTML = ""; // Clear previous summary
-  cartSummary(totalPrice); // Berechne und zeige die neue Gesamtsumme an
+  rightContainer.innerHTML = "";
+  cartSummary(totalPrice);
 }
 
 function removeCartProduct(id) {
-  const products = JSON.parse(localStorage.getItem("cart") || []);
-  const cartProducts = products.filter((product) => product.id !== id); // Filtert die Produkte
+  let products = JSON.parse(localStorage.getItem("cart")) || [];
+  products = products.filter((product) => product.id !== id);
+  localStorage.setItem("cart", JSON.stringify(products));
 
-  // Speichere die neuen Produkte im localStorage
-  localStorage.setItem("cart", JSON.stringify(cartProducts));
-
-  // Aktualisiere den Warenkorb, um die Änderungen anzuzeigen
   createLeftDiv();
+
+  const button = document.querySelector(`[data-product-id='${id}']`);
+  if (button) {
+    enableButton(button);
+  }
 }
 
-document.addEventListener("DOMContentLoaded", createLeftDiv);
+document.addEventListener("DOMContentLoaded", function () {
+  /* setTimeout(() => {
+    createLeftDiv(); // Verzögert die Ausführung von createLeftDiv()
+  }, 300); */
+  createLeftDiv();
+
+  const cartButtons = document.querySelectorAll(".cart-button");
+
+  cartButtons.forEach((button) => {
+    initializeCartButton(button);
+    button.addEventListener("click", function () {
+      window.addToCart(button);
+    });
+  });
+});
+
+function initializeCartButton(button) {
+  const productId = button.getAttribute("data-product-id");
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  const isAlreadyDisabled = cart.some((cart) => cart.id == productId);
+
+  if (isAlreadyDisabled) {
+    button.disabled = true;
+    button.classList.add("disabled");
+    button.textContent = addedToCart;
+  } else {
+    button.disabled = false;
+    button.classList.remove("disabled");
+    button.textContent = addToCart;
+  }
+}
