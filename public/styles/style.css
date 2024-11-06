@@ -162,6 +162,39 @@ footer {
   color: #333;
 }
 
+.sort-and-reset-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.sort-and-reset-container form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sort-and-reset-container select,
+.sort-and-reset-container button {
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.reset-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.reset-button:hover {
+  background-color: #c82333;
+}
+
 .fav-button,
 .cart-button {
   display: inline-block;
@@ -307,7 +340,7 @@ td {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 100px;
+  width: 150px;
 }
 
 .filter-form button {

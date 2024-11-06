@@ -42,6 +42,28 @@
 
         <button type="submit">Filtern</button>
       </form>
+      
+      <!-- Sortierungs- und Resetformular -->
+      <div class="sort-and-reset-container">
+        <form method="get" action="/products" class="sort-form">
+          <label for="sort">Sortieren nach:</label>
+          <select name="sort" id="sort" onchange="this.form.submit()">
+            <option value="">Keine Sortierung</option>
+            <option value="asc" <%= sort === 'asc' ? 'selected' : '' %>>Preis aufsteigend</option>
+            <option value="desc" <%= sort === 'desc' ? 'selected' : '' %>>Preis absteigend</option>
+          </select>
+          
+          <!-- Versteckte Felder für die Filterparameter -->
+          <input type="hidden" name="category" value="<%= category || '' %>" />
+          <input type="hidden" name="minPrice" value="<%= minPrice || '' %>" />
+          <input type="hidden" name="maxPrice" value="<%= maxPrice || '' %>" />
+        </form>
+        
+        <!-- Reset-Button -->
+        <form method="get" action="/products/reset" class="reset-form">
+          <button type="submit" class="reset-button">Filter zurücksetzen</button>
+        </form>
+      </div>
 
       <div class="product-list">
         <% products.forEach(product => { %>
@@ -73,6 +95,7 @@
           </button>
         </div>
         <% }); %>
+      </div>
     </main>
     <%- include('footer') %>
     <script src="/scripts/favorites.js"></script>
