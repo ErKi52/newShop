@@ -71,7 +71,7 @@
         <% products.forEach(product => { %>
         <div class="product-card">
           <a href="/productDetail/<%= product.id %>">
-            <img src="<%= product.image %>" alt="<%= product.name %>" class="product-image" />
+            <img src="<%= product.image %>" loading="lazy" alt="<%= product.name %>" class="product-image" />
           </a>
           <h2><%= product.name.substring(0, 50) %></h2>
           <p><%= product.description.substring(0, 70) + "..." %></p>
@@ -98,9 +98,10 @@
       </div>
     </main>
     <%- include('footer') %>
-    <script src="/scripts/favorites.js"></script>
+    <script type="module" src="/scripts/favorites.js"></script>
+    <script type="module" src="/scripts/cart.js"></script>
     <script src="/scripts/modal.js"></script>    
     <script src="/scripts/products.js"></script>
-    <script src="/scripts/cart.js"></script>
+    
   </body>
 </html>

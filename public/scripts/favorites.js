@@ -1,3 +1,5 @@
+// puböic/scripts/favorites.js
+
 "use strict";
 
 const addedToFavorites = "added to fav".toUpperCase();
@@ -89,7 +91,7 @@ function loadFavorites() {
     const productImage = document.createElement("img");
     productImage.src = product.image;
     productImage.alt = product.name;
-    productImage.style.width = "150px";
+    productImage.classList.add("product-image");
 
     // Produktname
     const productName = document.createElement("h2");
@@ -110,12 +112,20 @@ function loadFavorites() {
     removeButton.className = "remove-button";
     removeButton.textContent = "REMOVE";
 
+    // Cart-Button
+    const addToCartButton = document.createElement("button");
+    addToCartButton.classList.add("cart-button");
+    addToCartButton.textContent = "Warenkorb";
+    addToCartButton.setAttribute("data-product-id", product.id); // Das Produkt ID als Attribut setzen
+    addToCartButton.setAttribute("data-product", JSON.stringify(product));
+
     // Füge die Elemente zur Produktkarte hinzu
     productCard.appendChild(productImage);
     productCard.appendChild(productName);
     productCard.appendChild(productDescription);
     productCard.appendChild(productPrice);
     productCard.appendChild(removeButton);
+    productCard.appendChild(addToCartButton);
 
     favoritesContainer.appendChild(productCard);
 
@@ -123,7 +133,36 @@ function loadFavorites() {
     removeButton.addEventListener("click", function () {
       removeFavProduct(product.id);
     });
+
+    // Eventlistener für den Cart-Button hinzufügen
+    addToCartButton.addEventListener("click", function () {
+      addFavToCart(product);
+    });
   });
+}
+
+function addFavToCart(product) {
+  // Warenkorb aus dem localStorage abrufen oder ein leeres Array erstellen
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  // Prüfen, ob das Produkt bereits im Warenkorb ist
+  const isAlreadyInCart = cart.some((item) => item.id === product.id);
+
+  if (!isAlreadyInCart) {
+    // Produkt zum Warenkorb hinzufügen und im localStorage speichern
+    cart.push(product);
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+
+  // Button deaktivieren und visuell ändern
+  const addToCartButton = document.querySelector(
+    `[data-product-id='${product.id}']`
+  );
+  if (addToCartButton) {
+    addToCartButton.disabled = true; // Button deaktivieren
+    addToCartButton.classList.add("disabled"); // CSS-Klasse für die Farbe ändern
+    addToCartButton.textContent = "Im Warenkorb"; // Text anpassen
+  }
 }
 
 // Löschen und Erstellen einer neuen Liste

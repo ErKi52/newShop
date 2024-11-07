@@ -102,37 +102,27 @@ footer {
   justify-content: center;
 }
 
-/* Responsive Anpassungen */
-@media (max-width: 768px) {
-  .product-card {
-    width: 90%;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  .product-card {
-    width: 45%;
-  }
-}
-
+/* Standard Stil für product-card */
 .product-card {
   display: flex;
   flex-direction: column; /* Stellt sicher, dass der Inhalt vertikal ausgerichtet ist */
   justify-content: space-between; /* Verteilt den Inhalt gleichmäßig */
-  width: 340px;
+  width: 100%; /* Standardbreite auf 100% für flexibles Layout */
+  max-width: 340px; /* Maximalbreite für die Karte */
   height: auto;
-  min-height: 400px;
+  min-height: 400px; /* Mindesthöhe der Karte */
   border: 1px solid #ddd;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   background-color: #fff;
-  transition: transform 0.2s;
+  transition: transform 0.2s; /* Sanfte Animation beim Hover */
 }
 
+/* Hover-Effekt für die Produktkarte */
 .product-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px); /* Leichte Verschiebung beim Hover */
 }
 
 .product-card h2 {
@@ -148,18 +138,44 @@ footer {
   flex-grow: 1;
 }
 
-.product-image {
-  width: 250px;
-  height: 300px;
-  border-radius: 5px;
-  margin: 0 auto;
-}
-
 .product-card .price {
   margin-top: auto; /* Drückt den Preis nach unten, sodass er an der unteren Seite der Karte bleibt */
   font-weight: bold;
   font-size: 16px;
   color: #333;
+}
+
+/* Responsive Anpassungen */
+
+/* Auf mobilen Geräten (max-width: 768px) */
+@media (max-width: 768px) {
+  .product-card {
+    width: 90%; /* Die Karten nehmen 90% der Breite des Containers ein */
+    margin: 10px auto; /* Zentriert die Karten und fügt etwas Abstand hinzu */
+  }
+}
+
+/* Auf Tablets (769px bis 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .product-card {
+    width: 45%; /* Zwei Karten nebeneinander auf Tablets */
+    margin: 10px; /* Abstand zwischen den Karten */
+  }
+}
+
+/* Auf Desktops und größeren Displays (ab 1025px) */
+@media (min-width: 1025px) {
+  .product-card {
+    width: 22%; /* Vier Karten nebeneinander auf größeren Displays */
+    margin: 20px; /* Etwas mehr Abstand zwischen den Karten */
+  }
+}
+
+.product-image {
+  width: 250px;
+  height: 300px;
+  border-radius: 5px;
+  margin: 0 auto;
 }
 
 .sort-and-reset-container {
@@ -193,31 +209,6 @@ footer {
 
 .reset-button:hover {
   background-color: #c82333;
-}
-
-.fav-button,
-.cart-button {
-  display: inline-block;
-  background-color: #007bff;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  margin-top: 10px;
-  width: 100%;
-}
-
-.fav-button:hover,
-.cart-button:hover {
-  background-color: #0056b3;
-}
-
-.fav-button.disabled,
-.cart-button.disabled {
-  background-color: #6c757d; /* Graue Farbe für den favorisierten Button */
-  cursor: not-allowed; /* Zeigt an, dass der Button deaktiviert ist */
 }
 
 #favoritesContainer {
@@ -435,4 +426,93 @@ td {
 
 .modal-content button[type="submit"]:hover {
   background-color: #218838;
+}
+
+/* Grundstil für den Remove-Button */
+.remove-button {
+  background-color: #ff4d4d; /* Rote Hintergrundfarbe für den Button */
+  color: white; /* Weiße Schriftfarbe */
+  font-size: 16px; /* Schriftgröße */
+  padding: 10px 20px; /* Innenabstand (Padding) für mehr Klickfläche */
+  border: none; /* Kein Rand */
+  border-radius: 5px; /* Abgerundete Ecken */
+  cursor: pointer; /* Zeigt einen Pointer-Cursor beim Hover an */
+  transition: background-color 0.3s, transform 0.2s; /* Sanfte Übergänge bei Hover */
+}
+
+/* Hover-Effekt */
+.remove-button:hover {
+  background-color: #e60000; /* Dunkleres Rot beim Hover */
+  transform: scale(1.05); /* Vergrößerung beim Hover */
+}
+
+/* Fokus-Effekt */
+.remove-button:focus {
+  outline: none; /* Entfernt die Standard-Fokusumrandung */
+  box-shadow: 0 0 0 3px rgba(255, 77, 77, 0.5); /* Fügt eine eigene Fokussierung hinzu */
+}
+
+/* Gemeinsamer Stil für fav-button und cart-button */
+.fav-button,
+.cart-button {
+  display: inline-block;
+  background-color: #007bff; /* Blau für den Standardzustand */
+  color: white; /* Weiße Schriftfarbe */
+  padding: 8px 16px; /* Innenabstand für angenehme Größe */
+  border: none; /* Kein Rand */
+  border-radius: 4px; /* Abgerundete Ecken */
+  cursor: pointer; /* Zeigt einen Hand-Cursor an */
+  font-size: 14px; /* Angemessene Schriftgröße */
+  margin-top: 10px; /* Abstand nach oben */
+  width: 100%; /* Button nimmt die ganze Breite des Containers ein */
+  transition: background-color 0.3s, transform 0.2s; /* Sanfte Übergänge bei Hover */
+}
+
+/* Hover-Effekt für fav-button und cart-button */
+.fav-button:hover,
+.cart-button:hover {
+  background-color: #0056b3; /* Dunkleres Blau beim Hover */
+  transform: scale(1.05); /* Leichte Vergrößerung bei Hover */
+}
+
+/* Stil für deaktivierte fav-button und cart-button */
+.fav-button.disabled,
+.cart-button.disabled {
+  background-color: #6c757d; /* Graue Farbe für den deaktivierten Button */
+  cursor: not-allowed; /* Zeigt den 'Nicht erlaubt'-Cursor an */
+  color: #f8f9fa; /* Helle Schriftfarbe, um den Button noch lesbar zu machen */
+}
+
+/* Fokus-Effekt für fav-button und cart-button */
+.fav-button:focus,
+.cart-button:focus {
+  outline: none; /* Entfernt die Standard-Fokusumrandung */
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Fügt eine eigene Fokussierung hinzu */
+}
+
+/* Responsives Design: Tablets (ab 768px) */
+@media (min-width: 768px) {
+  .fav-button,
+  .cart-button {
+    font-size: 16px; /* Größere Schrift auf Tablets */
+    padding: 10px 20px; /* Etwas mehr Padding */
+  }
+}
+
+/* Responsives Design: Mobile (ab 480px) */
+@media (max-width: 767px) {
+  .fav-button,
+  .cart-button {
+    font-size: 14px; /* Kleinere Schrift für kleinere Displays */
+    padding: 8px 12px; /* Weniger Padding für schmalere Bildschirme */
+  }
+}
+
+/* Responsives Design: Sehr kleine Bildschirme (z.B. Portrait-Telefone) */
+@media (max-width: 480px) {
+  .fav-button,
+  .cart-button {
+    font-size: 12px; /* Noch kleinere Schrift */
+    padding: 6px 10px; /* Weniger Padding */
+  }
 }
