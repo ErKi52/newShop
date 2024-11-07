@@ -19,9 +19,9 @@ router.get("/", async (req, res) => {
     // Extrahiere die Bild-URLs
     const images = products.map((product) => product.image).filter(Boolean);
 
-    // Wähle zufällig 3–5 Bilder aus
+    // Wähle zufällig 10 Bilder aus
     const shuffled = images.sort(() => 0.5 - Math.random());
-    const selectedImages = shuffled.slice(0, 10); // Anzahl der Bilder
+    const selectedImages = shuffled.slice(0, 10);
 
     // Render die View mit den ausgewählten Bildern
     res.render("index", { images: selectedImages });
