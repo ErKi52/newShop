@@ -87,6 +87,10 @@ function loadFavorites() {
     productCard.className = "product-card";
     productCard.id = `product-${product.id}`;
 
+    // a-tag -> productdetail-page
+    const productLink = document.createElement("a");
+    productLink.href = `/productDetail/${product.id}`;
+
     // Produktbild
     const productImage = document.createElement("img");
     productImage.src = product.image;
@@ -120,7 +124,8 @@ function loadFavorites() {
     addToCartButton.setAttribute("data-product", JSON.stringify(product));
 
     // Füge die Elemente zur Produktkarte hinzu
-    productCard.appendChild(productImage);
+    productLink.appendChild(productImage);
+    productCard.appendChild(productLink);
     productCard.appendChild(productName);
     productCard.appendChild(productDescription);
     productCard.appendChild(productPrice);
