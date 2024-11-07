@@ -86,7 +86,6 @@ function createLeftDiv() {
     img.className = "cart-image";
     img.src = product.image;
     img.alt = product.name;
-    img.style.width = "80px";
     cellImage.appendChild(img);
     row.appendChild(cellImage);
 
@@ -97,7 +96,6 @@ function createLeftDiv() {
     const cellSelect = document.createElement("td");
     const quantitySelect = document.createElement("select");
     quantitySelect.className = "cart-quantity";
-    quantitySelect.style.width = "60px";
 
     for (let i = 1; i <= 5; i++) {
       const option = document.createElement("option");

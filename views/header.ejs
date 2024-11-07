@@ -1,6 +1,15 @@
 <header>
   <nav>
-    <ul>
+    <ul class="desktop-menu">
+      <li><a href="/">Home</a></li>
+      <li><a href="/products">Produkte</a></li>
+      <li><a href="/favorites">Favoriten</a></li>
+      <li><a href="/cart">Warenkorb</a></li>
+    </ul>
+    <!-- Hamburger-Icon für Mobilgeräte -->
+    <span class="hamburger">&#9776;</span>
+    <!-- Mobile Menü -->
+    <ul class="mobile-menu">
       <li><a href="/">Home</a></li>
       <li><a href="/products">Produkte</a></li>
       <li><a href="/favorites">Favoriten</a></li>
@@ -8,3 +17,13 @@
     </ul>
   </nav>
 </header>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const hamburger = document.querySelector(".hamburger");
+    const mobileMenu = document.querySelector("nav ul.mobile-menu");
+
+    hamburger.addEventListener("click", function () {
+      mobileMenu.classList.toggle("active");
+    });
+  });
+</script>
