@@ -1,5 +1,3 @@
-// puböic/scripts/favorites.js
-
 "use strict";
 
 const addedToFavorites = "added to fav".toUpperCase();
@@ -53,8 +51,7 @@ function enableButton(button) {
 function initializeFavButton(button) {
   const productId = button.getAttribute("data-product-id");
   const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
-  const isAlreadyFavorited = favorites.some((fav) => fav.id == productId);
+  const isAlreadyFavorited = favorites.some((fav) => fav.id === productId);
 
   if (isAlreadyFavorited) {
     // Wenn das Produkt in den Favoriten ist, Button deaktivieren und Farbe ändern
@@ -122,6 +119,20 @@ function loadFavorites() {
     addToCartButton.textContent = "Warenkorb";
     addToCartButton.setAttribute("data-product-id", product.id); // Das Produkt ID als Attribut setzen
     addToCartButton.setAttribute("data-product", JSON.stringify(product));
+
+    const isAlreadyInCart = JSON.parse(
+      localStorage.getItem("cart") || "[]"
+    ).some((item) => item.id === product.id);
+
+    if (isAlreadyInCart) {
+      addToCartButton.disabled = true;
+      addToCartButton.classList.add("disabled");
+      addToCartButton.textContent = "Im Warenkorb";
+    } else {
+      addToCartButton.disabled = false;
+      addToCartButton.classList.remove("disabled");
+      addToCartButton.textContent = "Warenkorb";
+    }
 
     // Füge die Elemente zur Produktkarte hinzu
     productLink.appendChild(productImage);
