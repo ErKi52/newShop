@@ -1,3 +1,5 @@
+// Express-Server wird gestartet, der verschiedene Routen und eine Datenbankverbindung einrichtet
+
 const express = require("express");
 const path = require("path");
 const productRoutes = require("./routes/products");
@@ -12,19 +14,19 @@ const fetchAndStoreProducts = require("./fetchData");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "views")); //  ist eine Variable, die das aktuelle Verzeichnis der Datei angibt, in der der Code ausgeführt wird.
 app.set("view engine", "ejs");
 
 app.use(express.static(path.join(__dirname, "public")));
 
-// Binde Routen ein
+// Einbindung der Routen
 app.use("/", homeRoutes);
 app.use("/products", productRoutes);
 app.use("/favorites", favoritesRoutes);
 app.use("/cart", cartRoutes);
-app.use("/productDetail", productDetailRoutes)
+app.use("/productDetail", productDetailRoutes);
 
-// Synchronisiere die Datenbank und lade Produkte von der API
+// Synchronisiert die Datenbank und ladet Produkte von der API
 const startServer = async () => {
   try {
     await syncDatabase(); // Synchronisiere die Datenbank
@@ -34,7 +36,7 @@ const startServer = async () => {
   }
 };
 
-// Starte den Server
+// Startet den Server
 startServer().then(() => {
   app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

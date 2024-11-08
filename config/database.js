@@ -1,3 +1,5 @@
+// Das einrichten einer Verbindung zu einer SQLite-DB
+
 const { Sequelize } = require("sequelize");
 
 // Neue Verbindung zu SQLite-Datenbank erstellen

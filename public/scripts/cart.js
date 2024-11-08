@@ -1,4 +1,5 @@
-// scripts/cart.js
+// Hinzufügen, Entfernen und Verwalten von Produkten im Warenkorb einer Webseite,
+// Es wird der Browser-Speicher (localStorage) genutzt
 
 "use strict";
 
@@ -7,9 +8,10 @@ const addToCart = "add to cart".toUpperCase();
 
 window.addToCart = function (button) {
   const product = JSON.parse(button.getAttribute("data-product"));
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let cart = JSON.parse(localStorage.getItem("cart")) || []; // -> wenn keine Daten im localStorage,  ein leerer Warenkorb als Standardwert
 
-  const isAlreadyInCart = cart.some((item) => item.id === product.id);
+  // Überprüfung, ob ein Produkt bereits im Warenkorb vorhanden ist
+  const isAlreadyInCart = cart.some((item) => item.id === product.id); // Callback-Funktion; es vergleicht die id mit der id im Warenkorb
 
   if (!isAlreadyInCart) {
     cart.push(product);
@@ -20,7 +22,7 @@ window.addToCart = function (button) {
     button.classList.add("disabled");
     button.textContent = addedToCart;
   } else {
-    // Wenn das Produkt schon im Warenkorb ist, entfernen wir es
+    // Wenn das Produkt schon im Warenkorb ist, wird es entfernt
     cart = cart.filter((item) => item.id !== product.id);
     localStorage.setItem("cart", JSON.stringify(cart));
 
@@ -30,7 +32,7 @@ window.addToCart = function (button) {
     button.textContent = addToCart;
   }
 
-  createLeftDiv(); // Aktualisiere Warenkorbanzeige
+  createLeftDiv();
 };
 
 // Funktion, um den "Warenkorb"-Button zu deaktivieren
@@ -211,6 +213,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+// initializeCartButton(button) prüft, ob ein Produkt bereits im Warenkorb ist
+// und passt den Zustand des "Warenkorb"-Buttons entsprechend an
 
 function initializeCartButton(button) {
   const productId = button.getAttribute("data-product-id");

@@ -1,6 +1,8 @@
-// fetchProducts.js
+// Es werden Produkte von der API abgerufen.
+// Diese werden in die DB gespeichert
+
 const axios = require("axios");
-const sequelize = require("./config/database"); // Stelle sicher, dass die Datenbankverbindung hier importiert ist
+const sequelize = require("./config/database");
 const Product = require("./models/Product");
 
 // Funktion zum Abrufen und Speichern von Daten
@@ -13,7 +15,7 @@ async function fetchAndStoreProducts() {
       console.log(
         "Produkte sind bereits in der Datenbank vorhanden. API-Import übersprungen."
       );
-      return; // Beende die Funktion, wenn bereits Produkte vorhanden sind
+      return; // Die Funktion wird beendet, wenn bereits Produkte vorhanden sind
     }
 
     const response = await axios.get("https://fakestoreapi.com/products");
@@ -27,7 +29,6 @@ async function fetchAndStoreProducts() {
         description: product.description,
         category: product.category,
         image: product.image,
-        // Füge hier weitere Felder hinzu, die du in der DB speichern möchtest
       });
     }
 

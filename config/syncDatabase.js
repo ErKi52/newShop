@@ -1,3 +1,10 @@
+/* 
+die Datenbank wird mit den in Sequelize definierten 
+Modellen synchronisiert.
+Sie lädt dazu die sequelize-Datenbankverbindung, 
+das Product-Modell und eine Funktion fetchAndStoreProducts. 
+*/
+
 const sequelize = require("./database");
 const Product = require("../models/Product");
 const fetchAndStoreProducts = require("../fetchData");

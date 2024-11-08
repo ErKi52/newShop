@@ -497,6 +497,9 @@ td {
   max-width: 600px;
   height: 400px;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .slide {

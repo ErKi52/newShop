@@ -1,4 +1,4 @@
-// routes/productDetail.js
+// Express-Router-Route für die Anzeige von Produktdetails
 const express = require("express");
 const Product = require("../models/Product");
 const router = express.Router();
@@ -6,9 +6,9 @@ const router = express.Router();
 // GET Produktdetails
 router.get("/:id", async (req, res) => {
   try {
-    const product = await Product.findByPk(req.params.id); // Finde das Produkt anhand der ID
+    const product = await Product.findByPk(req.params.id); // Findet das Produkt anhand der ID
     if (product) {
-      res.render("productDetail", { product }); // Render die Produktdetailseite
+      res.render("productDetail", { product }); // Rendert die Produktdetailseite
     } else {
       res.status(404).send("Produkt nicht gefunden");
     }

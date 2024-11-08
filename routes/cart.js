@@ -1,3 +1,5 @@
+// Express-Router-Route für die Warenkorb-Seite
+
 const express = require("express");
 const router = express.Router();
 

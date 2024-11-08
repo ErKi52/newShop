@@ -1,3 +1,5 @@
+// Express-Router-Route für die Favoriten-Seite
+
 const express = require("express");
 const router = express.Router();
 

@@ -28,13 +28,13 @@ document.addEventListener("DOMContentLoaded", () => {
   minPriceInput.addEventListener("keypress", enforceNumericInput);
   maxPriceInput.addEventListener("keypress", enforceNumericInput);
 
-  // Öffnen des Modals beim Klicken auf den Button
+  // Öffnet des Modals beim Klicken auf den Button
   openModalButton.addEventListener("click", openModal);
 
-  // Schließen des Modals beim Klicken auf das Schließen-Symbol
+  // Schließt des Modals beim Klicken auf das Schließen-Symbol
   closeModalButton.addEventListener("click", closeModal);
 
-  // Schließen des Modals beim Klick außerhalb des Inhaltsbereichs
+  // Schließt des Modals beim Klick außerhalb des Inhaltsbereichs
   window.addEventListener("click", (event) => {
     if (event.target === modal) {
       closeModal();

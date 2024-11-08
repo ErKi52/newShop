@@ -1,17 +1,19 @@
+//  Express-Router-Route für die Home-Seite
+
 const express = require("express");
 const router = express.Router();
 const Product = require("../models/Product.js");
 
-const desiredCategory = "electronics";
+// const desiredCategory = "electronics";
 
 // Home-Seite
 router.get("/", async (req, res) => {
   console.log("GET request for the home page");
 
   try {
-    // Hole alle Produkte mit Bild-URLs
+    // Holt alle Produkte mit Bild-URLs
     const products = await Product.findAll({
-      where: { category: desiredCategory },
+      // where: { category: desiredCategory },
       attributes: ["image"],
       raw: true, // Gibt nur die Rohdaten zurück, kein Sequelize-Objekt
     });
